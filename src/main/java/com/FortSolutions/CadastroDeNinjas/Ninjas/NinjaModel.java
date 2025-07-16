@@ -3,13 +3,21 @@ package com.FortSolutions.CadastroDeNinjas.Ninjas;
 
 import com.FortSolutions.CadastroDeNinjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 //Annotation serve para tranformar uma classe em entidade, para dps ir como tabela pro banco de dados
 @Entity
 @Table(name = "tabela_cadastro_ninja")
-
+//CRIA AUTOMATICAMENTE UM CONSTRUTOR VAZIO
+@NoArgsConstructor
+//CRIA AUTOMATICAMENTE UM CONSTRUTOR COM TODOS OS ATRIBUTOS SETADOS
+@AllArgsConstructor
+//CRIA AUTOMATICAMENTE UM GETTER E UM SETTER PARA TODOS OS ATRIBUTOS
+@Data
 //CLASSE
 public class NinjaModel {
     //ESSAS 2 ANOTACOES SERVEM PARA INCREMENTAR O ID NO BANCO DE DADOS AUTOMATICAMENTE
@@ -20,41 +28,12 @@ public class NinjaModel {
     private String nome;
     private String email;
     private int idade;
-    private List<MissoesModel> missoes;
-        //CONSTRUTOR VAZIO
-    public NinjaModel() {
-    }
-        //CONSTRUTOR CHEIO
-    public NinjaModel(String email, int idade, String nome) {
-        this.email = email;
-        this.idade = idade;
-        this.nome = nome;
-    }
+    //@ManyToOne Um ninja tem uma unica missão
+    @ManyToOne
+    @JoinColumn(name = "missoes_id")
+    private MissoesModel missoes;
 
-    //GETTER E SETTER
-    public String getEmail() {
-        return email;
-    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
 
 
